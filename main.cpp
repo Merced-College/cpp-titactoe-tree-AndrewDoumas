@@ -3,8 +3,8 @@
 #include <limits>
 using namespace std;
 
-const char HUMAN = 'X';
-const char COMPUTER = 'O';
+char HUMAN = 'X';
+char COMPUTER = 'O';
 const char EMPTY = ' ';
 
 class GameState {
@@ -107,6 +107,8 @@ public:
                 bestMove = move;
             }
         }
+        //prints the value of the move chosen
+        cout<<"The computer chose a move with a value of: "<<bestScore<<endl;
         return bestMove;
     }
 };
@@ -115,6 +117,59 @@ void playGame() {
     GameState state;
     TicTacToeTree ai;
     char currentPlayer = HUMAN;
+
+
+    bool play_first = true;
+    bool symbol_choice = true;
+    int p_choice = 0;
+    int move_choice = 0;
+
+    //lets the player choose if they want to play as X or O
+    while(symbol_choice){
+        cout<<"Would you like to play as X or O?"<<endl;
+        cout<<"Enter 1 to play as X or 2 to play as O"<<endl;
+
+        cin>>move_choice;
+        if(move_choice != 1 && move_choice !=2){
+            cout<<"Invalid entry, please try again"<<endl;
+        }
+
+        else{
+            symbol_choice = false;
+            if(move_choice == 2){
+                HUMAN = 'O';
+                COMPUTER = 'X';
+            }
+            if(move_choice == 1){
+                HUMAN = 'X';
+                COMPUTER = 'O';
+            }
+        }
+    }
+
+
+    //lets the player choose if they want to go first or second
+    while(play_first){
+        cout<<"Would you like to play first or second?"<<endl;
+        cout<<"Enter 1 to go first or 2 to go second"<<endl;
+        cin>>p_choice;
+        if(p_choice != 1 && p_choice != 2){
+            cout<<"Invalid entry, please try again"<<endl;
+        }
+        else{
+            play_first = false;
+            if(p_choice == 2){
+                currentPlayer = COMPUTER;
+            }
+            if(p_choice == 1){
+                currentPlayer = HUMAN;
+            }
+        }
+    }
+
+    
+
+
 
     while (!state.isGameOver()) {
         state.printBoard();
